@@ -1,0 +1,174 @@
+{% extends 'vdf/layout.html'%}
+{% load static %}
+{% load humanize%}
+{% load mathfilters%}
+
+{% block head%}
+    <title>VDF - Nền tảng gây quỹ dễ dàng nhanh chóng</title>
+{% endblock %}
+
+
+{% block body %}
+<section class="my-2 pb-4 container">
+    <h2 class="mb-4">Khám phá chiến dịch</h2>
+    <div class="mt-2 mb-4">
+        <form method="GET" action="{% url 'explore' %}" accept-charset="UTF-8" id="search-form">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input id="name" class="form-control" placeholder="Nhập từ khóa" name="name_" type="text" value="{{request.GET.name_}}">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="zmdi zmdi-search zmdi-hc-lg"></i> 
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row list-campaigns">
+        {% for campaign in campaigns %}
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <article class="card campaign-style2 mb-4">
+                <div class="embed-responsive embed-responsive-16by9">
+                <img class="embed-responsive-item" src="../static/vdf/{{campaign.coverImage}}"/>
+                </div>
+                <div class="card-body pb-3  d-flex flex-column align-items-start">
+                <div class="campaign-main-info mb-auto w-100">
+                    <div class="campaign-badge-box d-flex justify-content-between align-items-center">
+                        <img width="50" height="50" class="mr-2 avatar bg-white img-fill"
+                                src="https://kindmate.net/Uploads/2020/05/25/5ecbc9ad72073-logo-vnsound-music--white-.jpg"
+                                alt="vnsoundmusic">
+                                    </div>
+                    <a href="{{ campaign.get_absolute_url }}">
+                        <h6 class="card-title mt-3 mb-2 text-body ">{{campaign.name}}</h6>
+                    </a>
+                    <div class="card-text text-secondary">
+                       {{campaign.shortDescription}}
+                    </div>
+                    <div class="card-text card-author mt-1">
+                        <span class="text-secondary">bởi</span>
+                        <a href="javascript:void(0)"
+                            class="campaign-author-link">16pfiev3</a>
+                    </div>
+                    <ul class="tags-box">
+                        <li>
+                            <a href="#">Hoàn cảnh khó khăn</a>
+                        </li>
+                        <li>
+                            <a href="#">Trẻ em</a>
+                        </li>
+                        <li>
+                            <a href="#">Mùa đông</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top w-100">
+                    <div class="process-style d-flex justify-content-between align-items-center">
+                        <div
+                            class="progress-circle progress-{{ 100000|div:campaign.goal|mul:100|floatformat:0 }}"></div>
+                        <span class="campaign-percent-text">{{ 100000|div:campaign.goal|mul:100|floatformat:2 }}%</span>
+                    </div>
+                    <div class="campaign-info text-right">
+                        <div class="campaign-money">
+                            <span>{{ campaign.goal|intcomma }} đ</span>
+                        </div>
+                        <div class="campaign-deadline">
+                            <span class="small text-secondary">
+                                Còn lại 73 ngày
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </article>
+                </div>
+        {% endfor %}
+    </div>
+    <div class="my-3">
+        <nav aria-label="Page navigation">
+            {% if campaigns.has_other_pages %}
+                <ul class="pagination justify-content-center" role="navigation">
+                    {% if campaigns.has_previous %}
+                        <li><a href="?page={{ campaigns.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                        <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; Previous">
+                            <span class="page-link" aria-hidden="true">
+                                <i class="zmdi zmdi-chevron-left zmdi-hc-lg"></i>
+                                <i class="fa fa-chevron-left"></i>
+                            </span>
+                        </li>
+                    {% endif %}
+
+                    {% for i in campaigns.paginator.page_range %}
+                        {% if campaigns.number == i %}
+                            <li class="page-item active" aria-current="page"><span class="page-link">{{i}}</span></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if campaigns.has_next %}
+                    <a class="page-link" href="?page={{ campaigns.next_page_number }}" rel="next" aria-label="Next &raquo;">
+                            <i class="zmdi zmdi-chevron-right zmdi-hc-lg"></i>
+                            <i class="fa fa-chevron-right"></i>
+                    </a>
+                    {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        </nav>
+    </div>
+</section>
+<section id="introduce" class="py-5 bg-light">
+    <div class="container">
+                <div class="bottom-introduce mt-4 row">
+            <div class="text-center py-2 col-md-8 offset-md-2">
+                <h2 class="mb-5">Mọi cá nhân, tổ chức đều có thể tự tạo một trang web gây quỹ với VDF</h2>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="my-2">
+                            <img src="https://kindmate.net/svg/quyen-gop.svg" alt="quyen-gop" class="mb-4">
+                            <h4 class="my-2">Tôi muốn quyên góp</h4>
+                            <p class="my-2">
+                                Khởi tạo chiến dịch của bạn ngay lập tức, chỉ với vài thao tác đơn giản và dễ dàng
+                            </p>
+                            <a href="{% url 'taochiendich'%}" class="btn btn-lg btn-primary mt-3">Tạo chiến dịch</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="my-2">
+                            <img src="https://kindmate.net/svg/yeu-thuong.svg" alt="yeu-thuong" class="mb-4">
+                            <h4 class="my-2">Tôi muốn ủng hộ</h4>
+                            <p class="my-2">Hàng trăm chiến dịch đang cần sự trợ giúp của bạn, hãy cùng chúng tôi khám phá nhé</p>
+                            <a href="{% url 'explore' %}" class="btn btn-lg btn-danger mt-3">Các chiến dịch</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+<!--                <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--                <li class="page-item"><a class="page-link" href="#">4</a></li>-->
+<!--                <li class="page-item"><a class="page-link" href="#">5</a></li>-->
+<!--                <li class="page-item"><a class="page-link" href="#">6</a></li>-->
+<!--                <li class="page-item"><a class="page-link" href="#">7</a></li>-->
+<!--                <li class="page-item"><a class="page-link" href="#">8</a></li>-->
+<!--            <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>-->
+<!--            <li class="page-item"><a class="page-link" href="#">43</a></li>-->
+<!--            <li class="page-item"><a class="page-link" href="#">44</a></li>-->
+<!--            <li class="page-item">-->
+<!--                    <a class="page-link" href="#" rel="next" aria-label="Next &raquo;">-->
+<!--                        <i class="zmdi zmdi-chevron-right zmdi-hc-lg"></i>-->
+<!--                        <i class="fa fa-chevron-right"></i>-->
+<!--                    </a>-->
+<!--            </li>-->
+
+

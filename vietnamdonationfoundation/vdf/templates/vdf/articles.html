@@ -1,0 +1,52 @@
+{% extends 'vdf/layout.html'%} {% load static %} {% block head%}
+<title>VDF - Nền tảng gây quỹ dễ dàng nhanh chóng</title>
+{% endblock %} {% block body%}
+
+<main class="py-5">
+    <section id="list-campaign" class="pb-5">
+        <div class="container">
+            <div class="blog-header text-center">
+                <div class="container">
+                    <h1>Minh bạch quyên góp, dễ dàng ủng hộ</h1>
+                    <h2>VDF giúp các cá nhân và tổ chức tự tạo một trang web gây quỹ cộng đồng chuyên nghiệp.</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div id="sidebar" class="col-md-4">
+                    <div class="sidebar-content">
+                        <h5>Thể loại</h5>
+                        <div class="tags">
+                            <ul class="list-unstyled">
+                                <a href="#">
+                                    <li class="item-category">Từ thiện</li>
+                                </a>
+                                <a href="#">
+                                    <li class="item-category">Trẻ em</li>
+                                </a>
+                                <a href="#">
+                                    <li class="item-category">Khó khăn</li>
+                                </a>
+                                <a href="#">
+                                    <li class="item-category">Khuyết tật</li>
+                                </a>
+                                <a href="#">
+                                    <li class="item-category">Giáo dục</li>
+                                </a>
+                                <a href="#">
+                                    <li class="item-category">Khác</li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                    {% comment %}
+                    <div class="sidebar-content">
+                        <h5>Tag phổ biến</h5>
+                        <div class="tags">
+                            <a href="https://kindmate.net/tag/1/test"><button class="btn btn-primary tag mr-2 mb-2">test</button></a>
+                        </div>
+                    </div> {% endcomment %}
+                </div>
+            </div>
+    </section>
+</main>
+{% endblock %}

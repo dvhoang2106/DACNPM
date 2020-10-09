@@ -1,0 +1,6 @@
+.vscode/
+vdf/_pycache_/
+vietnamdonationfoundation/_pycache_/
+db.sqlite3
+migrations/
+static/vdf/img/
